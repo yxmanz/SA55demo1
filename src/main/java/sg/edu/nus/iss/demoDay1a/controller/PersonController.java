@@ -57,6 +57,20 @@ public class PersonController {
         return "personList";
     }
 
+    @GetMapping(value = "/add")
+    public String addPerson(Model model){
+        //in the form is where you fill in this new person object's attributes
+        Person person = new Person();
+        model.addAttribute("person", person);
+        return "addPerson";
+    }
+
+    @PostMapping(value = "/add")
+    public String savePerson(@ModelAttribute(value="person") Person p){
+        personService.addPerson(p);
+        return "redirect:/persons/list";
+    }
+
     @PostMapping(value = "/update")
     //when click update button in view it will pass the person object to controller via modelattribute?
     public String updatePerson(@ModelAttribute(value="per")Person p, Model model) {
